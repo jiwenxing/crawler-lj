@@ -6,7 +6,7 @@ import json
 from multiprocessing import Pool
 import requests
 from bs4 import BeautifulSoup
-import re
+import re # re模块为高级字符串处理提供了正则表达式工具
 import pandas as pd
 import pymongo
 
@@ -75,7 +75,7 @@ def main(url):
     writer_to_text(open_url(url))    #储存到text文件
     # update_to_MongoDB(list)   #储存到Mongodb
 
-
+# 每个模块都有一个__name__属性，当其值是'__main__'时，表明该模块自身在运行，否则是被引入
 if __name__ == '__main__':
     user_in_city = input('输入爬取城市：')
     user_in_nub = input('输入爬取页数：')
@@ -86,5 +86,5 @@ if __name__ == '__main__':
     # client = pymongo.MongoClient(Mongo_Url)
     # db = client[Mongo_DB]
     pool = Pool()
-    for i in generate_allurl('2', 'hz'):
-        pool.map(main, [url for url in get_allurl(i)])
+    for i in generate_allurl('1', 'hz'):
+        pool.map(main, [url for url in get_allurl(i)])   # results=pool.map(爬取函数，网址列表) 固定用法

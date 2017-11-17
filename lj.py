@@ -55,7 +55,7 @@ def open_url(re_get):  # 分析详细url获取所需信息
             if '</span>' in i and len(i) > 0 and '抵押信息' not in i:
                 key, value = (i.split('</span>'))
                 info[key[24:]] = value.rsplit('</li>')[0]
-        print(info)
+        print(info['标题'])
         return info
 
 def update_to_MongoDB(one_page):  # update储存到MongoDB

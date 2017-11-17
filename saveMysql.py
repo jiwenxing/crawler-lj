@@ -2,9 +2,10 @@
 
 import json
 import pymysql
+import re
 
 def connectdb():
-    print('连接到mysql服务器...')
+    # print('连接到mysql服务器...')
     # 连接数据库
     db = pymysql.Connect(
         host='192.168.192.125',
@@ -24,9 +25,9 @@ def connectdb():
     # 使用 fetchone() 方法获取单条数据.
     data = cursor.fetchone()
      
-    print ("Database version : %s " % data)
+    # print ("Database version : %s " % data)
      
-    print('连接上了!')
+    # print('连接上了!')
     return db
 
 def createtable(db):
@@ -80,28 +81,31 @@ def insertdb(db, info):
     #     print('插入数据失败!') 
     #     db.rollback()
 
-def querydb(db):
+def querydb(db, info):
     # 使用cursor()方法获取操作游标 
     cursor = db.cursor()
 
     # SQL 查询语句
     #sql = "SELECT * FROM Student \
     #    WHERE Grade > '%d'" % (80)
-    sql = "SELECT * FROM Student"
-    try:
-        # 执行SQL语句
-        cursor.execute(sql)
-        # 获取所有记录列表
-        results = cursor.fetchall()
-        for row in results:
-            ID = row[0]
-            Name = row[1]
-            Grade = row[2]
-            # 打印结果
-            # print "ID: %s, Name: %s, Grade: %d" % \
-            #     (ID, Name, Grade)
-    except:
-        print("Error: unable to fecth data")
+    sql = "SELECT * FROM lj_house WHERE house_url_id = '%d'" % (int(info.get("链家编号", "0")))
+    # 执行SQL语句
+    cursor.execute(sql)
+    # 获取所有记录列表
+    results = cursor.fetchall()
+    for row in results:
+        # print("already in database, houseId: %s, Price: %s" % (ID, Price)) 
+        ID = row[2]
+        Price = int(row[3])
+        # 打印结果
+        currentPrice = round(float(re.findall(r"\d+\.?\d*",info.get("总价", "0"))[0])) #通过正则提取其中的数字
+        if Price != currentPrice:
+            print("houseId: %s, yestoday: %d, today: %d, diff: %d" % (ID, Price, currentPrice, currentPrice - Price))
+        #     print("price not change")
+        # else:
+            
+            
+        break
 
 def deletedb(db):
     # 使用cursor()方法获取操作游标 
@@ -143,14 +147,24 @@ def closedb(db):
 def main():
     db = connectdb()    # 连接MySQL数据库
     
-    f = open("lj-data-2017-11-15.txt", "r", encoding='UTF-8')
+    # f = open("lj-data-2017-11-15.txt", "r", encoding='UTF-8')
+    # for line in f.readlines(): 
+    #     line = line.strip() 
+    #     if not len(line) or line.startswith('#'):       #判断是否是空行或注释行 
+    #         continue                                   
+    #     info = json.loads(line)
+    #     insertdb(db, info)        # 插入数据
+    #     print("插入数据库成功: " + info["标题"])
+
+    f = open("lj-data-2017-11-17.txt", "r", encoding='UTF-8')
     for line in f.readlines(): 
         line = line.strip() 
         if not len(line) or line.startswith('#'):       #判断是否是空行或注释行 
             continue                                   
         info = json.loads(line)
-        insertdb(db, info)        # 插入数据
-        print("插入数据库成功: " + info["标题"])
+        # print("update begin..." + info["标题"])
+        querydb(db, info)        # 插入数据
+        
 
     
     f.close()

@@ -1,3 +1,5 @@
+-- localhost mysql -uroot -pjiwenxing
+
 CREATE TABLE lj_house( 
     id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT COMMENT '主键',
     house_id BIGINT COMMENT '备案编号',
@@ -19,7 +21,8 @@ CREATE TABLE lj_house(
     price_diff int DEFAULT 0 COMMENT '调价差值',
     link VARCHAR(200) COMMENT '链接',
     created_date DATETIME COMMENT '创建时间',
-    modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间')ENGINE = InnoDB COMMENT 'lj' DEFAULT CHARSET=utf8;
+    modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间')
+ENGINE = InnoDB COMMENT 'lj' DEFAULT CHARSET=utf8;
 
 
 

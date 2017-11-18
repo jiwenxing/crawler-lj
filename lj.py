@@ -11,6 +11,7 @@ import re # re模块为高级字符串处理提供了正则表达式工具
 import pandas as pd
 import pymongo
 from saveMysql import connectdb, createtable, insertdb, querydb, updatedb, closedb
+from delrepeat import remove_repeat
 
 
 def generate_allurl(user_in_nub, user_in_city):  # 生成url
@@ -70,15 +71,13 @@ def pandas_to_xlsx(info):  # 储存到xlsx
 
 
 def writer_to_text(list):  # 储存到text
-    with open('lj-data-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt', 'a', encoding='utf-8')as f:
+    with open('lj-origin-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt', 'a', encoding='utf-8')as f:
         f.write(json.dumps(list, ensure_ascii=False) + '\n')
         f.close()
 
 
 def main(url):
-
     writer_to_text(open_url(url))    #储存到text文件
-    # update_to_MongoDB(list)   #储存到Mongodb
 
 # 每个模块都有一个__name__属性，当其值是'__main__'时，表明该模块自身在运行，否则是被引入
 if __name__ == '__main__':
@@ -87,3 +86,5 @@ if __name__ == '__main__':
     pool = Pool()
     for i in generate_allurl(user_in_nub, user_in_city):
         pool.map(main, [url for url in get_allurl(i)])   # results=pool.map(爬取函数，网址列表) 固定用法
+
+    remove_repeat('lj-origin-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt')

@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# Author:Jverson
 
 import json
 import pymysql
@@ -28,6 +30,32 @@ def connectdb():
     # print ("Database version : %s " % data)
      
     # print('连接上了!')
+    return db
+
+def connectlocal():
+    print('连接到mysql服务器...')
+    # 连接数据库
+    db = pymysql.Connect(
+        host='localhost',
+        port=3306,
+        user='root',
+        passwd='jiwenxing',
+        db='test',
+        charset='utf8'
+    )
+     
+    # 使用 cursor() 方法创建一个游标对象 cursor
+    cursor = db.cursor()
+     
+    # 使用 execute()  方法执行 SQL 查询 
+    cursor.execute("SELECT VERSION()")
+     
+    # 使用 fetchone() 方法获取单条数据.
+    data = cursor.fetchone()
+     
+    print ("Database version : %s " % data)
+     
+    print('连接上了!')
     return db
 
 def createtable(db):
@@ -69,7 +97,7 @@ def insertdb(db, info):
     sql = """INSERT INTO 
         lj_house (house_id, house_url_id, total_price, unit_price, total_square, area, street, city, community, build_time, house_style, floor, sale_date, decoration, hold_time, price_update_times, link, created_date) 
         VALUES ( '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', now() )"""
-    data = (int(info.get("房源编码", "0")), int(info.get("链家编号", "0")), info.get("总价", "0"), info.get("每平方售价", "0"), info.get("建筑面积", "0"), info.get("所在区", "未知"), info.get("所在街道", "未知"), info.get("城市", "未知"), info.get("小区名称", "未知"), info.get("建造时间", "0000-00-00"), info.get("房屋户型", "未知"), info.get("所在楼层", "未知"), info.get("挂牌时间", "0000-00-00"), info.get("装修情况", "未知"), info.get("房屋年限", "未知"), 0, info["链接"])
+    data = (int(info.get("房源编码", "0")), int(info.get("链家编号", "0")), re.findall(r"\d+\.?\d*",info.get("总价", "0"))[0], re.findall(r"\d+\.?\d*",info.get("每平方售价", "0"))[0], re.findall(r"\d+\.?\d*",info.get("建筑面积", "0"))[0], info.get("所在区", "未知"), info.get("所在街道", "未知"), info.get("城市", "未知"), info.get("小区名称", "未知"), info.get("建造时间", "0000-00-00"), info.get("房屋户型", "未知"), info.get("所在楼层", "未知"), info.get("挂牌时间", "0000-00-00"), info.get("装修情况", "未知"), info.get("房屋年限", "未知"), 0, info["链接"])
     # try:
     # 执行sql语句
     cursor.execute(sql % data)
@@ -145,7 +173,9 @@ def closedb(db):
     db.close()
 
 def main():
-    db = connectdb()    # 连接MySQL数据库
+    # db = connectdb()    # 连接MySQL数据库
+
+    db = connectlocal()    # 连接MySQL数据库
     
     # f = open("lj-data-2017-11-15.txt", "r", encoding='UTF-8')
     # for line in f.readlines(): 
@@ -156,7 +186,8 @@ def main():
     #     insertdb(db, info)        # 插入数据
     #     print("插入数据库成功: " + info["标题"])
 
-    f = open("lj-data-2017-11-17.txt", "r", encoding='UTF-8')
+    
+    f = open("lj-uniq-2017-11-18.txt", "r", encoding='UTF-8')
     for line in f.readlines(): 
         line = line.strip() 
         if not len(line) or line.startswith('#'):       #判断是否是空行或注释行 
@@ -165,8 +196,6 @@ def main():
         # print("update begin..." + info["标题"])
         querydb(db, info)        # 插入数据
         
-
-    
     f.close()
 
    

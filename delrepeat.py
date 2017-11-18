@@ -31,12 +31,12 @@ def remove_repeat(fileName):
 
 
 def writer_to_text(list):  # 储存到text
-    with open('lj-uniq-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt', 'a', encoding='utf-8')as f:
+    with open('lj-uniq-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt', 'a', encoding='UTF-8')as f:
         f.write(json.dumps(list, ensure_ascii=False) + '\n')
         f.close()
 
 def main():
-    remove_repeat("lj-data-2017-11-17.txt")
+    remove_repeat("lj-origin-"+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt')
 
 
 

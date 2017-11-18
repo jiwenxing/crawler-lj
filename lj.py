@@ -8,14 +8,12 @@ from multiprocessing import Pool
 import requests
 from bs4 import BeautifulSoup
 import re # re模块为高级字符串处理提供了正则表达式工具
-import pandas as pd
-import pymongo
-from saveMysql import connectdb, createtable, insertdb, querydb, updatedb, closedb
 from delrepeat import remove_repeat
+from mysqlop import save_or_update
 
 
 def generate_allurl(user_in_nub, user_in_city):  # 生成url
-    url = 'http://' + user_in_city + '.lianjia.com/ershoufang/xihu/pg{}/'
+    url = 'http://' + user_in_city + '.lianjia.com/ershoufang/jianggan/pg{}/'
     for url_next in range(1, int(user_in_nub)):
         print(url.format(url_next) + " start!")
         yield url.format(url_next)
@@ -59,19 +57,9 @@ def open_url(re_get):  # 分析详细url获取所需信息
         print(info['标题'])
         return info
 
-def update_to_MongoDB(one_page):  # update储存到MongoDB
-    if db[Mongo_TABLE].update({'链家编号': one_page['链家编号']}, {'$set': one_page}, True): #去重复
-        print('储存MongoDB 成功!')
-        return True
-    return False
-
-def pandas_to_xlsx(info):  # 储存到xlsx
-    pd_look = pd.DataFrame(info)
-    pd_look.to_excel('链家二手房.xlsx', sheet_name='链家二手房')
-
 
 def writer_to_text(list):  # 储存到text
-    with open('lj-origin-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt', 'a', encoding='utf-8')as f:
+    with open('lj-jianggan-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt', 'a', encoding='utf-8')as f:
         f.write(json.dumps(list, ensure_ascii=False) + '\n')
         f.close()
 
@@ -87,4 +75,6 @@ if __name__ == '__main__':
     for i in generate_allurl(user_in_nub, user_in_city):
         pool.map(main, [url for url in get_allurl(i)])   # results=pool.map(爬取函数，网址列表) 固定用法
 
-    remove_repeat('lj-origin-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt')
+    # remove_repeat('lj-origin-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt')
+    save_or_update('lj-jianggan-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt')
+

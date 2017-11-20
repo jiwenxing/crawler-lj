@@ -5,16 +5,27 @@ a simple crawler demo by python3, whitch can fetch second-hand house data of spe
 
 ## how
 
-1. use the ddl.sql to create tables, modify the database connection config in mysqlop.py
-2. run lj.py to output a txt file whitch store the data fetch from lianjia website
-3. run mysqlop.py to persist the data into mysql
-4. do your analysis
+1. use the ddl.sql to create tables, modify the database connection config in mysqlop.py    
+```python
+db = pymysql.Connect(
+            host='192.168.192.125',
+            port=3358,
+            user='root',
+            passwd='123456',
+            db='test',
+            charset='utf8'
+        )
+```
+
+2. run lj.py to fetch data from lianjia website and persist them into mysql    
+you need to input the city code and area code that you want to fetch, for example, if 'hz' and 'xihu' were typed in means you will fetch data from `https://hz.lianjia.com/ershoufang/xihu/`
+
+3. do your analysis
 
 
 ## todo
 
 - schedule task & automatically
-- analysis way
 - data visualization
 
 ## references

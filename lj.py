@@ -7,16 +7,31 @@ import json
 from multiprocessing import Pool
 import requests
 from bs4 import BeautifulSoup
-import re # re模块为高级字符串处理提供了正则表达式工具
+import re # re模块为高级字符串处理提供了正则表达式工具  
 from delrepeat import remove_repeat
 from mysqlop import save_or_update
+import os
 
 
-def generate_allurl(user_in_nub, user_in_city):  # 生成url
-    url = 'http://' + user_in_city + '.lianjia.com/ershoufang/jianggan/pg{}/'
-    for url_next in range(1, int(user_in_nub)):
+def generate_allurl(city_code, area_code):  # 生成url
+    url = 'http://' + city_code + '.lianjia.com/ershoufang/'+ area_code + '/pg{}/'
+    url_first_page = 'http://' + city_code + '.lianjia.com/ershoufang/'+ area_code + '/'
+    page_num = get_page_num(url_first_page)
+    for url_next in range(1, page_num):
         print(url.format(url_next) + " start!")
         yield url.format(url_next)
+
+
+def get_page_num(url_first_page):
+    res = requests.get(url_first_page)
+    if res.status_code == 200:
+        soup = BeautifulSoup(res.text, 'lxml')
+        page_arr = soup.select('.total.fl')
+        total_num = int(re.findall(r"\d+\.?\d*", page_arr[0].text)[0])
+        page_num = round(total_num/30)
+        print("total houses of this area is %d, total page number is %d" % (total_num, page_num))
+        return page_num
+    return 0
 
 
 def get_allurl(generate_allurl):  # 分析url解析出每一页的详细url
@@ -59,7 +74,7 @@ def open_url(re_get):  # 分析详细url获取所需信息
 
 
 def writer_to_text(list):  # 储存到text
-    with open('lj-jianggan-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt', 'a', encoding='utf-8')as f:
+    with open('lj-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt', 'a', encoding='utf-8')as f:
         f.write(json.dumps(list, ensure_ascii=False) + '\n')
         f.close()
 
@@ -67,14 +82,18 @@ def writer_to_text(list):  # 储存到text
 def main(url):
     writer_to_text(open_url(url))    #储存到text文件
 
-# 每个模块都有一个__name__属性，当其值是'__main__'时，表明该模块自身在运行，否则是被引入
 if __name__ == '__main__':
-    user_in_city = input('输入爬取城市：')
-    user_in_nub = input('输入爬取页数：')
+    city_code = input('输入爬取城市代码：')
+    area_code = input('输入爬取区域代码：')
+
     pool = Pool()
-    for i in generate_allurl(user_in_nub, user_in_city):
+    for i in generate_allurl(city_code, area_code):
         pool.map(main, [url for url in get_allurl(i)])   # results=pool.map(爬取函数，网址列表) 固定用法
 
+    file_name = 'lj-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt'
+    save_or_update(file_name, "remote")
+    os.remove(file_name)
+    
     # remove_repeat('lj-origin-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt')
-    save_or_update('lj-jianggan-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt')
+    # get_page_num('http://hz.lianjia.com/ershoufang/jianggan/')
 

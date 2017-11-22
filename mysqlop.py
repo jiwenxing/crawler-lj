@@ -41,7 +41,7 @@ def create_table(db):
     cursor.execute("DROP TABLE IF EXISTS lj_house")
     sql = """CREATE TABLE lj_house( 
     id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT COMMENT '主键',
-    house_id BIGINT COMMENT '备案编号',
+    title VARCHAR(100) COMMENT '标题',
     house_url_id BIGINT COMMENT '链家编号',
     total_price int COMMENT '总价',
     unit_price int COMMENT '单价',
@@ -71,13 +71,15 @@ def insert_data(db, info):
     cursor = db.cursor()
     # info = {"标题": "户型正气，不沿马路，带花园，适宜居住", "总价": "183万", "每平方售价": "31112元/平米", "参考总价": "首付55万 税费13.8万(仅供参考) ", "建造时间": "未知年建", "小区名称": "三墩街100号小区", "所在区域": "西湖:三墩", "链家编号": "103101836069", "链接": "https://hz.lianjia.com/ershoufang/103101836069.html", "房屋户型": "3室1厅1厨1卫", "所在楼层": "中楼层 (共5层)", "建筑面积": "58.82㎡", "户型结构": "平层", "套内面积": "1㎡", "建筑类型": "", "房屋朝向": "南 北", "建筑结构": "未知结构", "装修情况": "简装", "梯户比例": "一梯两户", "配备电梯": "暂无数据", "产权年限": "70年", "挂牌时间": "2017-10-21", "交易权属": "商品房", "上次交易": "2000-07-17", "房屋用途": "普通住宅", "房屋年限": "满五年", "产权所属": "共有", "房本备件": "已上传房本照片", "房源编码": "170717332568"}
     sql = """INSERT INTO 
-        lj_house (house_url_id, total_price, unit_price, total_square, area, street, city, community, build_time, house_style, floor, sale_date, decoration, hold_time, price_update_times, link, created_date) 
-        VALUES ( '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', now() )"""
-    data = (int(info.get("链家编号", "0")), re.findall(r"\d+\.?\d*",info.get("总价", "0"))[0], re.findall(r"\d+\.?\d*",info.get("每平方售价", "0"))[0], re.findall(r"\d+\.?\d*",info.get("建筑面积", "0"))[0], info.get("所在区", "未知"), info.get("所在街道", "未知"), info.get("城市", "未知"), info.get("小区名称", "未知"), info.get("建造时间", "0000-00-00"), info.get("房屋户型", "未知"), info.get("所在楼层", "未知"), info.get("挂牌时间", "0000-00-00"), info.get("装修情况", "未知"), info.get("房屋年限", "未知"), 0, info["链接"])
+        lj_house (title, house_url_id, total_price, unit_price, total_square, area, street, city, community, build_time, house_style, floor, sale_date, decoration, hold_time, price_update_times, link, created_date) 
+        VALUES ( '%s', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', now() )"""
+    data = (info.get("标题", "无"), int(info.get("链家编号", "0")), re.findall(r"\d+\.?\d*",info.get("总价", "0"))[0], re.findall(r"\d+\.?\d*",info.get("每平方售价", "0"))[0], re.findall(r"\d+\.?\d*",info.get("建筑面积", "0"))[0], info.get("所在区", "未知"), info.get("所在街道", "未知"), info.get("城市", "未知"), info.get("小区名称", "未知"), info.get("建造时间", "0000-00-00"), info.get("房屋户型", "未知"), info.get("所在楼层", "未知"), info.get("挂牌时间", "0000-00-00"), info.get("装修情况", "未知"), info.get("房屋年限", "未知"), 0, info["链接"])
     cursor.execute(sql % data)
     db.commit()
 
 def calculate_diff(db, info):
+    if info is None:
+        return 0
     cursor = db.cursor()
     sql = "SELECT * FROM lj_house WHERE house_url_id = '%d'" % (int(info.get("链家编号", "0")))
     cursor.execute(sql)
@@ -132,18 +134,23 @@ def save_or_update(fileName, server):
         line = line.strip() 
         if not len(line) or line.startswith('#'): 
             continue                                   
-        info = json.loads(line)
-        diff = calculate_diff(db, info)
-        if diff == 9999:
-            insert_data(db, info)
-            print(info["标题"])
-            print("price diff: %d, insert done!" % (diff))
-            insertNum += 1
-        elif diff != 0:
-            update_data(db, info, diff)
-            print(info["标题"])
-            print("price diff: %d, update done!" % (diff))
-            updateNum += 1
+        try:
+            info = json.loads(line)
+        except Exception as e:
+            print("json.loads exception, line: %s" % (line))
+            continue
+        else:
+            diff = calculate_diff(db, info)
+            if diff == 9999:
+                insert_data(db, info)
+                print(info["标题"])
+                print("price diff: %d, insert done!" % (diff))
+                insertNum += 1
+            elif diff != 0:
+                update_data(db, info, diff)
+                print(info["标题"])
+                print("price diff: %d, update done!" % (diff))
+                updateNum += 1
 
     print("total insert data: %d" % insertNum)
     print("total update data: %d" % updateNum)
@@ -156,14 +163,14 @@ def main():
     # db = connect_server("local") 
     db = connect_server("remote") 
     
-    # f = open("lj-uniq-2017-11-15.txt", "r", encoding='UTF-8')
-    # for line in f.readlines(): 
-    #     line = line.strip() 
-    #     if not len(line) or line.startswith('#'):       #判断是否是空行或注释行 
-    #         continue                                   
-    #     info = json.loads(line)
-    #     insert_data(db, info)        # 插入数据
-    #     print("插入数据库成功: " + info["标题"])
+    f = open("lj-uniq-2017-11-15.txt", "r", encoding='UTF-8')
+    for line in f.readlines(): 
+        line = line.strip() 
+        if not len(line) or line.startswith('#'):       #判断是否是空行或注释行 
+            continue                                   
+        info = json.loads(line)
+        insert_data(db, info)        # 插入数据
+        print("插入数据库成功: " + info["标题"])
 
     
     # f = open("lj-uniq-2017-11-18.txt", "r", encoding='UTF-8')
@@ -177,29 +184,29 @@ def main():
     # f.close()
 
    
-    f = open("lj-uniq-" + time.strftime('%Y-%m-%d',time.localtime(time.time())) + '.txt', "r", encoding = 'UTF-8')
-    insertNum = 0
-    updateNum = 0
-    for line in f.readlines(): 
-        line = line.strip() 
-        if not len(line) or line.startswith('#'): 
-            continue                                   
-        info = json.loads(line)
-        print(info["标题"])
-        diff = calculate_diff(db, info)
-        print("price diff: %d" % diff)
-        if diff == 9999:
-            print("insert begin")
-            insert_data(db, info)
-            insertNum += 1
-        elif diff != 0:
-            print("update begin")
-            update_data(db, info, diff)
-            updateNum += 1
+    # f = open("lj-uniq-" + time.strftime('%Y-%m-%d',time.localtime(time.time())) + '.txt', "r", encoding = 'UTF-8')
+    # insertNum = 0
+    # updateNum = 0
+    # for line in f.readlines(): 
+    #     line = line.strip() 
+    #     if not len(line) or line.startswith('#'): 
+    #         continue                                   
+    #     info = json.loads(line)
+    #     print(info["标题"])
+    #     diff = calculate_diff(db, info)
+    #     print("price diff: %d" % diff)
+    #     if diff == 9999:
+    #         print("insert begin")
+    #         insert_data(db, info)
+    #         insertNum += 1
+    #     elif diff != 0:
+    #         print("update begin")
+    #         update_data(db, info, diff)
+    #         updateNum += 1
 
-    print("total insert data: %d" % insertNum)
-    print("total update data: %d" % updateNum)
-    f.close()
+    # print("total insert data: %d" % insertNum)
+    # print("total update data: %d" % updateNum)
+    # f.close()
 
 
 

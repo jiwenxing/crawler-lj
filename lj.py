@@ -94,6 +94,10 @@ if __name__ == '__main__':
     save_or_update(file_name, "remote")
     os.remove(file_name)
     
+
+    # save_or_update("lj-2017-11-22.txt", "remote")
+
+
     # remove_repeat('lj-origin-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt')
     # get_page_num('http://hz.lianjia.com/ershoufang/jianggan/')
 

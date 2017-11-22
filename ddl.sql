@@ -2,7 +2,7 @@
 
 CREATE TABLE lj_house( 
     id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT COMMENT '主键',
-    house_id BIGINT COMMENT '备案编号',
+    title VARCHAR(100) COMMENT '标题',
     house_url_id BIGINT COMMENT '链家编号',
     total_price int COMMENT '总价',
     unit_price int COMMENT '单价',

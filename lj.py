@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Author;Tsukasa
+# Author: Tsukasa
+# update: Jverson
 
 import time
 import json
 from multiprocessing import Pool
 import requests
 from bs4 import BeautifulSoup
-import re # re模块为高级字符串处理提供了正则表达式工具  
+import re   
 from delrepeat import remove_repeat
 from mysqlop import save_or_update
-import os
+import os, sys
+import logging
 
+FILE_NAME_DATA = "lj-crawler-data.txt"
+FILE_NAME_LOG = "crawler.log"
 
 def generate_allurl(city_code, area_code):  # 生成url
     url = 'http://' + city_code + '.lianjia.com/ershoufang/'+ area_code + '/pg{}/'
@@ -41,9 +45,23 @@ def get_allurl(generate_allurl):  # 分析url解析出每一页的详细url
         re_get = re.findall(re_set, get_url.text)
         return re_get
 
+def get_proxy():
+    return requests.get("http://0.0.0.0:5010/get/").content
 
-def open_url(re_get):  # 分析详细url获取所需信息
-    res = requests.get(re_get)
+def delete_proxy(proxy):
+    requests.get("http://0.0.0.0:5010/delete/?proxy={}".format(proxy))
+
+def open_url(re_get):  
+    res = None
+    while res is None or res.status_code != 200:
+        try:
+            proxy = get_proxy()
+            res = requests.get(re_get, timeout=3, proxies={"http": "http://{}".format(proxy)})
+        except:
+            print("Unexpected error: %s, proxy: %s" % (sys.exc_info()[0], proxy))
+            delete_proxy(proxy)
+            continue
+    
     if res.status_code == 200:
         info = {}
         soup = BeautifulSoup(res.text, 'lxml')
@@ -73,31 +91,50 @@ def open_url(re_get):  # 分析详细url获取所需信息
         return info
 
 
-def writer_to_text(list):  # 储存到text
-    with open('lj-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt', 'a', encoding='utf-8')as f:
+def writer_to_text(list):  
+    with open(FILE_NAME_DATA, 'a', encoding='utf-8')as f:
         f.write(json.dumps(list, ensure_ascii=False) + '\n')
         f.close()
 
 
 def main(url):
-    writer_to_text(open_url(url))    #储存到text文件
+    writer_to_text(open_url(url))    
+
+def run():
+    # remove temp file
+    if os.path.exists(FILE_NAME_DATA):
+        os.remove(FILE_NAME_DATA)
+    if os.path.exists(FILE_NAME_LOG):
+        os.remove(FILE_NAME_LOG)
+
+    # city_code = input('输入爬取城市代码：')
+    # area_code = input('输入爬取区域代码：')
+    city_code = 'hz'
+    db_server = input('输入要连接的数据库：') #local for my mac, remote for the server
+    # 自定义只抓取感兴趣的区域
+    area_code_set = {'xiasha', 'shangcheng', 'xihu', 'jianggan', 'gongshu', 'binjiang', 'xiacheng'}
+    
+    logging.basicConfig(filename=FILE_NAME_LOG, filemode="w", level=logging.ERROR)
+    logging.error('>>>>>>>>>> task begin @ %s >>>>>>>>>>' % (time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())))
+    start = time.time()
+    
+    for area_code in area_code_set:
+        logging.error('the area %s begin at %s' % (area_code, time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())))
+        pool = Pool()
+        for i in generate_allurl(city_code, area_code):
+            pool.map(main, [url for url in get_allurl(i)])   # results=pool.map(爬取函数，网址列表) 固定用法
+        logging.error('the area %s end at %s' % (area_code, time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())))
+    
+    save_or_update(FILE_NAME_DATA, db_server)
+    
+    end = time.time()
+    logging.error("task takes %d minutes in total" % ((end - start)/60))
+    logging.error('<<<<<<<<<< task over @ %s <<<<<<<<<<' % (time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())))
+
+
+
+
 
 if __name__ == '__main__':
-    city_code = input('输入爬取城市代码：')
-    area_code = input('输入爬取区域代码：')
-
-    pool = Pool()
-    for i in generate_allurl(city_code, area_code):
-        pool.map(main, [url for url in get_allurl(i)])   # results=pool.map(爬取函数，网址列表) 固定用法
-
-    file_name = 'lj-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt'
-    save_or_update(file_name, "remote")
-    os.remove(file_name)
-    
-
-    # save_or_update("lj-2017-11-22.txt", "remote")
-
-
-    # remove_repeat('lj-origin-'+time.strftime('%Y-%m-%d',time.localtime(time.time()))+'.txt')
-    # get_page_num('http://hz.lianjia.com/ershoufang/jianggan/')
+    run()
 

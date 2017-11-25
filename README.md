@@ -30,4 +30,5 @@ you need to input the city code and area code that you want to fetch, for exampl
 
 ## references
 
+- [Python爬虫代理IP池(proxy pool)](https://github.com/jhao104/proxy_pool)
 - [python3 爬虫教学之爬取链家二手房](https://www.cnblogs.com/Tsukasa/p/6799968.html)

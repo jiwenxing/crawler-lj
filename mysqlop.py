@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Author:Jverson
 
@@ -6,7 +6,8 @@ import json
 import pymysql
 import re
 import time
-
+import os
+import logging
 
 def connect_server(server):
     db = None
@@ -77,6 +78,7 @@ def insert_data(db, info):
     cursor.execute(sql % data)
     db.commit()
 
+# 计算挂牌价变化，0：no change；9999：new onsale；else：price diff
 def calculate_diff(db, info):
     if info is None:
         return 0
@@ -155,62 +157,19 @@ def save_or_update(fileName, server):
     print("total insert data: %d" % insertNum)
     print("total update data: %d" % updateNum)
 
+    logging.error("total insert data: %d" % insertNum)
+    logging.error("total update data: %d" % updateNum)
+
     f.close()
     closedb(db) 
 
 
 def main():
-    # db = connect_server("local") 
-    db = connect_server("remote") 
     
-    f = open("lj-uniq-2017-11-15.txt", "r", encoding='UTF-8')
-    for line in f.readlines(): 
-        line = line.strip() 
-        if not len(line) or line.startswith('#'):       #判断是否是空行或注释行 
-            continue                                   
-        info = json.loads(line)
-        insert_data(db, info)        # 插入数据
-        print("插入数据库成功: " + info["标题"])
-
-    
-    # f = open("lj-uniq-2017-11-18.txt", "r", encoding='UTF-8')
-    # for line in f.readlines(): 
-    #     line = line.strip() 
-    #     if not len(line) or line.startswith('#'): 
-    #         continue                                   
-    #     info = json.loads(line)
-    #     calculate_diff(db, info) 
-        
-    # f.close()
-
-   
-    # f = open("lj-uniq-" + time.strftime('%Y-%m-%d',time.localtime(time.time())) + '.txt', "r", encoding = 'UTF-8')
-    # insertNum = 0
-    # updateNum = 0
-    # for line in f.readlines(): 
-    #     line = line.strip() 
-    #     if not len(line) or line.startswith('#'): 
-    #         continue                                   
-    #     info = json.loads(line)
-    #     print(info["标题"])
-    #     diff = calculate_diff(db, info)
-    #     print("price diff: %d" % diff)
-    #     if diff == 9999:
-    #         print("insert begin")
-    #         insert_data(db, info)
-    #         insertNum += 1
-    #     elif diff != 0:
-    #         print("update begin")
-    #         update_data(db, info, diff)
-    #         updateNum += 1
-
-    # print("total insert data: %d" % insertNum)
-    # print("total update data: %d" % updateNum)
-    # f.close()
-
-
-
-    closedb(db)     
+    fileNames =  os.listdir('./data')
+    for fileName in fileNames:
+        save_or_update("./data/"+fileName, "local")
+  
 
 if __name__ == '__main__':
     main()

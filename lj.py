@@ -104,8 +104,6 @@ def run():
     # remove temp file
     if os.path.exists(FILE_NAME_DATA):
         os.remove(FILE_NAME_DATA)
-    if os.path.exists(FILE_NAME_LOG):
-        os.remove(FILE_NAME_LOG)
 
     # city_code = input('输入爬取城市代码：')
     # area_code = input('输入爬取区域代码：')

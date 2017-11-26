@@ -25,17 +25,17 @@
 统计口径：
  
 ```sql
-select now(),count(id), avg(total_price), avg(total_square), avg(total_price+price_diff)/avg(total_square) as cur_avg_price from lj_house where total_price<800 and total_square<200;
+select date_format(now(),'%y-%m-%d') as time,count(id) as house_num, avg(total_price), avg(total_square), avg(total_price+price_diff)/avg(total_square) as cur_avg_price from lj_house where total_price<800 and total_square<200;
 ```
 
 统计结果：
 
 ```
-+---------------------+-----------+------------------+-------------------+---------------+
-| now()               | count(id) | avg(total_price) | avg(total_square) | cur_avg_price |
-+---------------------+-----------+------------------+-------------------+---------------+
-| 2017-11-26 23:05:08 |      6522 |         336.8329 |           88.9405 |    3.78517765 |
-+---------------------+-----------+------------------+-------------------+---------------+
++----------+-----------+------------------+-------------------+---------------+
+| time     | house_num | avg(total_price) | avg(total_square) | cur_avg_price |
++----------+-----------+------------------+-------------------+---------------+
+| 17-11-26 |      6522 |         336.8329 |           88.9405 |    3.78517765 |
++----------+-----------+------------------+-------------------+---------------+
 ```
 
 ### 调价均值（只统计调过价的房子）
@@ -45,15 +45,15 @@ select now(),count(id), avg(total_price), avg(total_square), avg(total_price+pri
 统计口径：
 
 ```sql
-select now(),count(id),avg(price_diff),avg(total_square) from lj_house where abs(price_diff)>0 and abs(price_diff)<50 and TIMESTAMPDIFF(DAY,sale_date,now())<100;
+select date_format(now(),'%y-%m-%d') as time,count(id) as house_num,avg(price_diff),avg(total_square), avg(TIMESTAMPDIFF(DAY,sale_date,now())) as avg_sale_days from lj_house where abs(price_diff)>0 and abs(price_diff)<50 and TIMESTAMPDIFF(DAY,sale_date,now())<100;
 ```
 
 统计结果：
 
 ```
-+---------------------+-----------+-----------------+-------------------+
-| now()               | count(id) | avg(price_diff) | avg(total_square) |
-+---------------------+-----------+-----------------+-------------------+
-| 2017-11-26 22:57:24 |       270 |         -6.1704 |           85.2296 |
-+---------------------+-----------+-----------------+-------------------+
++----------+-----------+-----------------+-------------------+---------------+
+| time     | house_num | avg(price_diff) | avg(total_square) | avg_sale_days |
++----------+-----------+-----------------+-------------------+---------------+
+| 17-11-26 |       270 |         -6.1704 |           85.2296 |       43.5963 |
++----------+-----------+-----------------+-------------------+---------------+
 ```

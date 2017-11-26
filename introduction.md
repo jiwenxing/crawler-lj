@@ -40,12 +40,12 @@ select date_format(now(),'%y-%m-%d') as time,count(id) as house_num, avg(total_p
 
 ### 调价均值（只统计调过价的房子）
 
-这个指标一定程度上能反映卖家的心理预期，可以适当排除一些调价幅度过大（大于50）且挂牌时间超过100天的业主，感觉这部分业主不诚心卖，有扰乱市场之嫌
+这个指标一定程度上能反映卖家的心理预期，可以适当排除一些调价幅度过大（大于50）且挂牌时间超过半年的业主，感觉这部分业主不诚心卖，有扰乱市场之嫌
 
 统计口径：
 
 ```sql
-select date_format(now(),'%y-%m-%d') as time,count(id) as house_num,avg(price_diff),avg(total_square), avg(TIMESTAMPDIFF(DAY,sale_date,now())) as avg_sale_days from lj_house where abs(price_diff)>0 and abs(price_diff)<50 and TIMESTAMPDIFF(DAY,sale_date,now())<100;
+select date_format(now(),'%y-%m-%d') as time,count(id) as house_num,avg(price_diff),avg(total_square), avg(TIMESTAMPDIFF(DAY,sale_date,now())) as avg_sale_days from lj_house where abs(price_diff)>0 and abs(price_diff)<50 and TIMESTAMPDIFF(DAY,sale_date,now())<180;
 ```
 
 统计结果：
@@ -54,6 +54,6 @@ select date_format(now(),'%y-%m-%d') as time,count(id) as house_num,avg(price_di
 +----------+-----------+-----------------+-------------------+---------------+
 | time     | house_num | avg(price_diff) | avg(total_square) | avg_sale_days |
 +----------+-----------+-----------------+-------------------+---------------+
-| 17-11-26 |       270 |         -6.1704 |           85.2296 |       43.5963 |
+| 17-11-26 |       317 |         -5.1767 |           88.1767 |       55.4700 |
 +----------+-----------+-----------------+-------------------+---------------+
 ```

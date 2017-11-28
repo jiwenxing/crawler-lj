@@ -1,6 +1,13 @@
-# crawler-lj
 
-a simple crawler demo by python3, whitch can fetch second-hand house data of specialized city from lianjia website, and persist them in mysql for analysis. 
+![](http://7xry05.com1.z0.glb.clouddn.com/201711281254_646.png)
+
+[![language](https://img.shields.io/badge/python-v3.6.1-blue.svg)]()
+[![version](https://img.shields.io/badge/version-1.1-yellowgreen.svg)]()
+[![dependencies](https://img.shields.io/badge/dependencies-mysql%20%7C%20reids-green.svg)]()
+
+___
+
+a web crawler demo by python3, whitch can fetch second-hand house data of specialized city from lianjia website, and finally persist them in mysql for analysis. 
  
 
 ## how

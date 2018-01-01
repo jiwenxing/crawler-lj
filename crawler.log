@@ -1,19 +1,276 @@
-ERROR:root:>>>>>>>>>> task begin @ 2017-11-26 17:18:41 >>>>>>>>>>
-ERROR:root:the area binjiang begin at 2017-11-26 17:18:41
-ERROR:root:the area binjiang end at 2017-11-26 17:22:35
-ERROR:root:the area gongshu begin at 2017-11-26 17:22:35
-ERROR:root:the area gongshu end at 2017-11-26 17:28:48
-ERROR:root:the area jianggan begin at 2017-11-26 17:28:48
-ERROR:root:the area jianggan end at 2017-11-26 17:35:35
-ERROR:root:the area xiasha begin at 2017-11-26 17:35:35
-ERROR:root:the area xiasha end at 2017-11-26 17:39:43
-ERROR:root:the area xiacheng begin at 2017-11-26 17:39:43
-ERROR:root:the area xiacheng end at 2017-11-26 17:46:13
-ERROR:root:the area shangcheng begin at 2017-11-26 17:46:13
-ERROR:root:the area shangcheng end at 2017-11-26 17:49:31
-ERROR:root:the area xihu begin at 2017-11-26 17:49:31
-ERROR:root:the area xihu end at 2017-11-26 18:00:44
-ERROR:root:total insert data: 56
-ERROR:root:total update data: 76
-ERROR:root:task takes 42 minutes in total
-ERROR:root:<<<<<<<<<< task over @ 2017-11-26 18:01:28 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-02 18:26:03 >>>>>>>>>>
+ERROR:root:the area shangcheng begin at 2017-12-02 18:26:03
+ERROR:root:the area shangcheng end at 2017-12-02 18:28:34
+ERROR:root:the area xihu begin at 2017-12-02 18:28:34
+ERROR:root:the area xihu end at 2017-12-02 18:36:33
+ERROR:root:the area gongshu begin at 2017-12-02 18:36:33
+ERROR:root:the area gongshu end at 2017-12-02 18:41:08
+ERROR:root:the area xiacheng begin at 2017-12-02 18:41:08
+ERROR:root:the area xiacheng end at 2017-12-02 18:46:12
+ERROR:root:the area xiasha begin at 2017-12-02 18:46:12
+ERROR:root:the area xiasha end at 2017-12-02 18:49:34
+ERROR:root:the area jianggan begin at 2017-12-02 18:49:34
+ERROR:root:the area jianggan end at 2017-12-02 18:54:51
+ERROR:root:the area binjiang begin at 2017-12-02 18:54:51
+ERROR:root:the area binjiang end at 2017-12-02 18:57:12
+ERROR:root:total insert data: 75
+ERROR:root:total update data: 58
+ERROR:root:total priceUpNum: 21
+ERROR:root:total priceDownNum: 37
+ERROR:root:avg price diff: -1.413793
+ERROR:root:task takes 32 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-02 18:58:07 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-03 20:35:06 >>>>>>>>>>
+ERROR:root:the area xihu begin at 2017-12-03 20:35:06
+ERROR:root:the area xihu end at 2017-12-03 20:45:20
+ERROR:root:the area gongshu begin at 2017-12-03 20:45:20
+ERROR:root:the area gongshu end at 2017-12-03 20:50:18
+ERROR:root:the area xiasha begin at 2017-12-03 20:50:18
+ERROR:root:the area xiasha end at 2017-12-03 20:54:01
+ERROR:root:the area binjiang begin at 2017-12-03 20:54:01
+ERROR:root:the area binjiang end at 2017-12-03 20:56:32
+ERROR:root:the area shangcheng begin at 2017-12-03 20:56:32
+ERROR:root:the area shangcheng end at 2017-12-03 20:59:13
+ERROR:root:the area xiacheng begin at 2017-12-03 20:59:13
+ERROR:root:the area xiacheng end at 2017-12-03 21:05:03
+ERROR:root:the area jianggan begin at 2017-12-03 21:05:03
+ERROR:root:the area jianggan end at 2017-12-03 21:10:40
+ERROR:root:total insert data: 55
+ERROR:root:total update data: 102
+ERROR:root:total priceUpNum: 30
+ERROR:root:total priceDownNum: 72
+ERROR:root:avg price diff: -4.058824
+ERROR:root:task takes 36 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-03 21:11:39 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-04 21:50:11 >>>>>>>>>>
+ERROR:root:the area shangcheng begin at 2017-12-04 21:50:11
+ERROR:root:the area shangcheng end at 2017-12-04 21:53:02
+ERROR:root:the area xiasha begin at 2017-12-04 21:53:02
+ERROR:root:the area xiasha end at 2017-12-04 21:56:47
+ERROR:root:the area xiacheng begin at 2017-12-04 21:56:47
+ERROR:root:the area xiacheng end at 2017-12-04 22:02:51
+ERROR:root:the area jianggan begin at 2017-12-04 22:02:51
+ERROR:root:the area jianggan end at 2017-12-04 22:08:41
+ERROR:root:the area xihu begin at 2017-12-04 22:08:41
+ERROR:root:the area xihu end at 2017-12-04 22:18:14
+ERROR:root:the area gongshu begin at 2017-12-04 22:18:14
+ERROR:root:the area gongshu end at 2017-12-04 22:23:06
+ERROR:root:the area binjiang begin at 2017-12-04 22:23:06
+ERROR:root:the area binjiang end at 2017-12-04 22:25:38
+ERROR:root:total insert data: 59
+ERROR:root:total update data: 58
+ERROR:root:total priceUpNum: 15
+ERROR:root:total priceDownNum: 43
+ERROR:root:avg price diff: -5.982759
+ERROR:root:task takes 36 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-04 22:26:35 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-06 20:58:30 >>>>>>>>>>
+ERROR:root:the area binjiang begin at 2017-12-06 20:58:30
+ERROR:root:the area binjiang end at 2017-12-06 21:03:57
+ERROR:root:the area jianggan begin at 2017-12-06 21:03:57
+ERROR:root:the area jianggan end at 2017-12-06 21:14:29
+ERROR:root:the area gongshu begin at 2017-12-06 21:14:29
+ERROR:root:the area gongshu end at 2017-12-06 21:23:59
+ERROR:root:the area xihu begin at 2017-12-06 21:23:59
+ERROR:root:the area xihu end at 2017-12-06 21:40:12
+ERROR:root:the area xiacheng begin at 2017-12-06 21:40:12
+ERROR:root:the area xiacheng end at 2017-12-06 21:51:08
+ERROR:root:the area xiasha begin at 2017-12-06 21:51:08
+ERROR:root:the area xiasha end at 2017-12-06 21:58:14
+ERROR:root:the area shangcheng begin at 2017-12-06 21:58:14
+ERROR:root:the area shangcheng end at 2017-12-06 22:03:21
+ERROR:root:total insert data: 254
+ERROR:root:total update data: 143
+ERROR:root:total priceUpNum: 40
+ERROR:root:total priceDownNum: 103
+ERROR:root:avg price diff: -5.629371
+ERROR:root:task takes 65 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-06 22:04:16 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-08 21:32:07 >>>>>>>>>>
+ERROR:root:the area xiacheng begin at 2017-12-08 21:32:07
+ERROR:root:the area xiacheng end at 2017-12-08 21:37:48
+ERROR:root:the area shangcheng begin at 2017-12-08 21:37:48
+ERROR:root:the area shangcheng end at 2017-12-08 21:40:32
+ERROR:root:the area xiasha begin at 2017-12-08 21:40:32
+ERROR:root:the area xiasha end at 2017-12-08 21:49:00
+ERROR:root:the area xihu begin at 2017-12-08 21:49:00
+ERROR:root:the area xihu end at 2017-12-08 21:59:23
+ERROR:root:the area jianggan begin at 2017-12-08 21:59:23
+ERROR:root:the area jianggan end at 2017-12-08 22:05:19
+ERROR:root:the area binjiang begin at 2017-12-08 22:05:19
+ERROR:root:the area binjiang end at 2017-12-08 22:07:57
+ERROR:root:the area gongshu begin at 2017-12-08 22:07:57
+ERROR:root:the area gongshu end at 2017-12-08 22:12:54
+ERROR:root:total insert data: 272
+ERROR:root:total update data: 180
+ERROR:root:total priceUpNum: 45
+ERROR:root:total priceDownNum: 135
+ERROR:root:avg price diff: -4.622222
+ERROR:root:task takes 41 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-08 22:14:00 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-10 20:52:16 >>>>>>>>>>
+ERROR:root:the area xiacheng begin at 2017-12-10 20:52:16
+ERROR:root:the area xiacheng end at 2017-12-10 20:58:04
+ERROR:root:the area xihu begin at 2017-12-10 20:58:04
+ERROR:root:the area xihu end at 2017-12-10 21:08:34
+ERROR:root:the area xiasha begin at 2017-12-10 21:08:34
+ERROR:root:the area xiasha end at 2017-12-10 21:13:09
+ERROR:root:the area binjiang begin at 2017-12-10 21:13:09
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-10 21:24:39 >>>>>>>>>>
+ERROR:root:the area gongshu begin at 2017-12-10 21:24:39
+ERROR:root:the area gongshu end at 2017-12-10 21:31:41
+ERROR:root:the area jianggan begin at 2017-12-10 21:31:41
+ERROR:root:the area jianggan end at 2017-12-10 21:48:32
+ERROR:root:the area xiasha begin at 2017-12-10 21:48:32
+ERROR:root:the area xiasha end at 2017-12-10 21:52:39
+ERROR:root:the area xihu begin at 2017-12-10 21:52:39
+ERROR:root:the area xihu end at 2017-12-10 22:03:55
+ERROR:root:the area xiacheng begin at 2017-12-10 22:03:55
+ERROR:root:the area xiacheng end at 2017-12-10 22:11:02
+ERROR:root:the area shangcheng begin at 2017-12-10 22:11:02
+ERROR:root:the area shangcheng end at 2017-12-10 22:15:30
+ERROR:root:the area binjiang begin at 2017-12-10 22:15:30
+ERROR:root:the area binjiang end at 2017-12-10 22:18:44
+ERROR:root:total insert data: 112
+ERROR:root:total update data: 152
+ERROR:root:total priceUpNum: 21
+ERROR:root:total priceDownNum: 131
+ERROR:root:avg price diff: -7.335526
+ERROR:root:task takes 55 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-10 22:19:47 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-14 21:48:49 >>>>>>>>>>
+ERROR:root:the area xihu begin at 2017-12-14 21:48:49
+ERROR:root:the area xihu end at 2017-12-14 21:59:23
+ERROR:root:the area binjiang begin at 2017-12-14 21:59:23
+ERROR:root:the area binjiang end at 2017-12-14 22:01:49
+ERROR:root:the area xiasha begin at 2017-12-14 22:01:49
+ERROR:root:the area xiasha end at 2017-12-14 22:05:49
+ERROR:root:the area jianggan begin at 2017-12-14 22:05:49
+ERROR:root:the area jianggan end at 2017-12-14 22:11:48
+ERROR:root:the area shangcheng begin at 2017-12-14 22:11:48
+ERROR:root:the area shangcheng end at 2017-12-14 22:14:42
+ERROR:root:the area xiacheng begin at 2017-12-14 22:14:42
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-15 13:34:10 >>>>>>>>>>
+ERROR:root:the area shangcheng begin at 2017-12-15 13:34:10
+ERROR:root:the area shangcheng end at 2017-12-15 13:37:12
+ERROR:root:the area binjiang begin at 2017-12-15 13:37:12
+ERROR:root:the area binjiang end at 2017-12-15 13:39:42
+ERROR:root:the area jianggan begin at 2017-12-15 13:39:42
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-15 14:01:47 >>>>>>>>>>
+ERROR:root:the area gongshu begin at 2017-12-15 14:01:47
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-15 14:03:20 >>>>>>>>>>
+ERROR:root:the area jianggan begin at 2017-12-15 14:03:20
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-15 14:49:39 >>>>>>>>>>
+ERROR:root:the area xiacheng begin at 2017-12-15 14:49:39
+ERROR:root:the area xiacheng end at 2017-12-15 14:56:47
+ERROR:root:the area xiasha begin at 2017-12-15 14:56:47
+ERROR:root:the area xiasha end at 2017-12-15 15:01:27
+ERROR:root:the area gongshu begin at 2017-12-15 15:01:27
+ERROR:root:the area gongshu end at 2017-12-15 15:13:46
+ERROR:root:the area binjiang begin at 2017-12-15 15:13:46
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-16 08:59:45 >>>>>>>>>>
+ERROR:root:the area xiasha begin at 2017-12-16 08:59:45
+ERROR:root:the area xiasha end at 2017-12-16 09:03:33
+ERROR:root:the area gongshu begin at 2017-12-16 09:03:33
+ERROR:root:the area gongshu end at 2017-12-16 09:08:25
+ERROR:root:the area binjiang begin at 2017-12-16 09:08:25
+ERROR:root:the area binjiang end at 2017-12-16 09:10:21
+ERROR:root:the area xihu begin at 2017-12-16 09:10:21
+ERROR:root:the area xihu end at 2017-12-16 09:25:17
+ERROR:root:the area xiacheng begin at 2017-12-16 09:25:17
+ERROR:root:the area xiacheng end at 2017-12-16 09:31:56
+ERROR:root:the area shangcheng begin at 2017-12-16 09:31:56
+ERROR:root:the area shangcheng end at 2017-12-16 09:34:37
+ERROR:root:the area jianggan begin at 2017-12-16 09:34:37
+ERROR:root:the area jianggan end at 2017-12-16 09:42:28
+ERROR:root:total insert data: 498
+ERROR:root:total update data: 306
+ERROR:root:total priceUpNum: 55
+ERROR:root:total priceDownNum: 251
+ERROR:root:avg price diff: -7.954248
+ERROR:root:task takes 43 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-16 09:43:33 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-20 20:53:46 >>>>>>>>>>
+ERROR:root:the area jianggan begin at 2017-12-20 20:53:46
+ERROR:root:the area jianggan end at 2017-12-20 21:00:34
+ERROR:root:the area xiasha begin at 2017-12-20 21:00:34
+ERROR:root:the area xiasha end at 2017-12-20 21:04:37
+ERROR:root:the area shangcheng begin at 2017-12-20 21:04:37
+ERROR:root:the area shangcheng end at 2017-12-20 21:07:28
+ERROR:root:the area xiacheng begin at 2017-12-20 21:07:28
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-23 10:00:07 >>>>>>>>>>
+ERROR:root:the area jianggan begin at 2017-12-23 10:00:07
+ERROR:root:the area jianggan end at 2017-12-23 10:08:15
+ERROR:root:the area binjiang begin at 2017-12-23 10:08:15
+ERROR:root:the area binjiang end at 2017-12-23 10:11:04
+ERROR:root:the area xiasha begin at 2017-12-23 10:11:04
+ERROR:root:the area xiasha end at 2017-12-23 10:16:35
+ERROR:root:the area xiacheng begin at 2017-12-23 10:16:35
+ERROR:root:the area xiacheng end at 2017-12-23 10:27:19
+ERROR:root:the area gongshu begin at 2017-12-23 10:27:19
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-23 17:36:16 >>>>>>>>>>
+ERROR:root:the area shangcheng begin at 2017-12-23 17:36:16
+ERROR:root:the area shangcheng end at 2017-12-23 17:39:14
+ERROR:root:the area xihu begin at 2017-12-23 17:39:14
+ERROR:root:the area xihu end at 2017-12-23 17:55:23
+ERROR:root:the area xiacheng begin at 2017-12-23 17:55:23
+ERROR:root:the area xiacheng end at 2017-12-23 18:01:48
+ERROR:root:the area gongshu begin at 2017-12-23 18:01:48
+ERROR:root:the area gongshu end at 2017-12-23 18:09:14
+ERROR:root:the area jianggan begin at 2017-12-23 18:09:14
+ERROR:root:the area jianggan end at 2017-12-23 18:16:16
+ERROR:root:the area xiasha begin at 2017-12-23 18:16:16
+ERROR:root:the area xiasha end at 2017-12-23 18:21:27
+ERROR:root:the area binjiang begin at 2017-12-23 18:21:27
+ERROR:root:the area binjiang end at 2017-12-23 18:25:24
+ERROR:root:total insert data: 651
+ERROR:root:total update data: 556
+ERROR:root:total priceUpNum: 120
+ERROR:root:total priceDownNum: 436
+ERROR:root:avg price diff: -6.937050
+ERROR:root:task takes 50 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-23 18:26:44 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-27 21:43:06 >>>>>>>>>>
+ERROR:root:the area binjiang begin at 2017-12-27 21:43:06
+ERROR:root:the area binjiang end at 2017-12-27 21:56:06
+ERROR:root:the area jianggan begin at 2017-12-27 21:56:06
+ERROR:root:the area jianggan end at 2017-12-27 22:18:59
+ERROR:root:the area shangcheng begin at 2017-12-27 22:18:59
+ERROR:root:the area shangcheng end at 2017-12-27 22:24:11
+ERROR:root:the area xiacheng begin at 2017-12-27 22:24:11
+ERROR:root:the area xiacheng end at 2017-12-27 22:31:40
+ERROR:root:the area xiasha begin at 2017-12-27 22:31:40
+ERROR:root:the area xiasha end at 2017-12-27 22:37:50
+ERROR:root:the area gongshu begin at 2017-12-27 22:37:50
+ERROR:root:the area gongshu end at 2017-12-27 22:49:01
+ERROR:root:the area xihu begin at 2017-12-27 22:49:01
+ERROR:root:the area xihu end at 2017-12-27 23:07:54
+ERROR:root:total insert data: 317
+ERROR:root:total update data: 286
+ERROR:root:total priceUpNum: 54
+ERROR:root:total priceDownNum: 232
+ERROR:root:avg price diff: -6.587413
+ERROR:root:task takes 85 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-27 23:09:02 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2017-12-30 15:38:38 >>>>>>>>>>
+ERROR:root:the area xihu begin at 2017-12-30 15:38:38
+ERROR:root:the area xihu end at 2017-12-30 15:48:13
+ERROR:root:the area gongshu begin at 2017-12-30 15:48:13
+ERROR:root:the area gongshu end at 2017-12-30 15:54:16
+ERROR:root:the area jianggan begin at 2017-12-30 15:54:16
+ERROR:root:the area jianggan end at 2017-12-30 16:00:57
+ERROR:root:the area xiacheng begin at 2017-12-30 16:00:57
+ERROR:root:the area xiacheng end at 2017-12-30 16:07:02
+ERROR:root:the area shangcheng begin at 2017-12-30 16:07:02
+ERROR:root:the area shangcheng end at 2017-12-30 16:10:24
+ERROR:root:the area xiasha begin at 2017-12-30 16:10:24
+ERROR:root:the area xiasha end at 2017-12-30 16:14:16
+ERROR:root:the area binjiang begin at 2017-12-30 16:14:16
+ERROR:root:the area binjiang end at 2017-12-30 16:17:11
+ERROR:root:total insert data: 334
+ERROR:root:total update data: 244
+ERROR:root:total priceUpNum: 56
+ERROR:root:total priceDownNum: 188
+ERROR:root:avg price diff: -5.938525
+ERROR:root:task takes 39 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2017-12-30 16:18:25 <<<<<<<<<<

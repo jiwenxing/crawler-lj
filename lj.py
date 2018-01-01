@@ -56,7 +56,7 @@ def open_url(re_get):
     while res is None or res.status_code != 200:
         try:
             proxy = get_proxy()
-            res = requests.get(re_get, timeout=3, proxies={"http": "http://{}".format(proxy)})
+            res = requests.get(re_get, timeout=2, proxies={"http": "http://{}".format(proxy)})
         except:
             print("Unexpected error: %s, proxy: %s" % (sys.exc_info()[0], proxy))
             delete_proxy(proxy)
@@ -65,36 +65,43 @@ def open_url(re_get):
     if res.status_code == 200:
         info = {}
         soup = BeautifulSoup(res.text, 'lxml')
-        info['标题'] = soup.select('.main')[0].text
-        info['总价'] = soup.select('.total')[0].text + '万'
-        info['每平方售价'] = soup.select('.unitPriceValue')[0].text
-        info['参考总价'] = soup.select('.taxtext')[0].text
-        info['建造时间'] = soup.select('.subInfo')[2].text
-        info['小区名称'] = soup.select('.info')[0].text
-        info['所在区'] = soup.select('.info a')[0].text
-        info['所在街道'] = soup.select('.info a')[1].text
-        info['链家编号'] = str(re_get)[34:].rsplit('.html')[0] #https://hz.lianjia.com/ershoufang/103101839020.html
-        info['链接'] = str(re_get)
-        info['区代码'] = str(re_get)[34:].rsplit('.html')[0]
-        info['城市'] =  str(re_get)[8:].rsplit(".")[0]
-        for i in soup.select('.base li'):
-            i = str(i)
-            if '</span>' in i or len(i) > 0:
-                key, value = (i.split('</span>'))
-                info[key[24:]] = value.rsplit('</li>')[0]
-        for i in soup.select('.transaction li'):
-            i = str(i)
-            if '</span>' in i and len(i) > 0 and '抵押信息' not in i:
-                key, value = (i.split('</span>'))
-                info[key[24:]] = value.rsplit('</li>')[0]
-        print(info['标题'])
-        return info
+        try:
+            info['标题'] = soup.select('.main')[0].text
+            info['总价'] = soup.select('.total')[0].text + '万'
+            info['每平方售价'] = soup.select('.unitPriceValue')[0].text
+            info['参考总价'] = soup.select('.taxtext')[0].text
+            info['建造时间'] = soup.select('.subInfo')[2].text
+            info['小区名称'] = soup.select('.info')[0].text
+            info['所在区'] = soup.select('.info a')[0].text
+            info['所在街道'] = soup.select('.info a')[1].text
+            info['链家编号'] = str(re_get)[34:].rsplit('.html')[0] #https://hz.lianjia.com/ershoufang/103101839020.html
+            info['链接'] = str(re_get)
+            info['区代码'] = str(re_get)[34:].rsplit('.html')[0]
+            info['城市'] =  str(re_get)[8:].rsplit(".")[0]
+            for i in soup.select('.base li'):
+                i = str(i)
+                if '</span>' in i or len(i) > 0:
+                    key, value = (i.split('</span>'))
+                    info[key[24:]] = value.rsplit('</li>')[0]
+            for i in soup.select('.transaction li'):
+                i = str(i)
+                if '</span>' in i and len(i) > 0 and '抵押信息' not in i:
+                    key, value = (i.split('</span>'))
+                    info[key[24:]] = value.rsplit('</li>')[0]
+        except:
+            print("Unexpected error: %s, info: %s" % (sys.exc_info()[0], info))
+            return None
+        else:
+            print(info['标题'])
+            return info
 
 
-def writer_to_text(list):  
-    with open(FILE_NAME_DATA, 'a', encoding='utf-8')as f:
-        f.write(json.dumps(list, ensure_ascii=False) + '\n')
-        f.close()
+def writer_to_text(list):
+    if list is not None:
+          with open(FILE_NAME_DATA, 'a', encoding='utf-8')as f:
+              f.write(json.dumps(list, ensure_ascii=False) + '\n')
+              f.close()  
+    
 
 
 def main(url):
@@ -108,11 +115,12 @@ def run():
     # city_code = input('输入爬取城市代码：')
     # area_code = input('输入爬取区域代码：')
     city_code = 'hz'
-    db_server = input('输入要连接的数据库：') #local for my mac, remote for the server
+    # db_server = input('输入要连接的数据库：') #local for my mac, remote for the server
+    db_server = 'local'
     # 自定义只抓取感兴趣的区域
     area_code_set = {'xiasha', 'shangcheng', 'xihu', 'jianggan', 'gongshu', 'binjiang', 'xiacheng'}
     
-    logging.basicConfig(filename=FILE_NAME_LOG, filemode="w", level=logging.ERROR)
+    logging.basicConfig(filename=FILE_NAME_LOG, filemode="a", level=logging.ERROR)
     logging.error('>>>>>>>>>> task begin @ %s >>>>>>>>>>' % (time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())))
     start = time.time()
     
@@ -126,6 +134,7 @@ def run():
     save_or_update(FILE_NAME_DATA, db_server)
     
     end = time.time()
+    print("task takes %d minutes in total" % ((end - start)/60))
     logging.error("task takes %d minutes in total" % ((end - start)/60))
     logging.error('<<<<<<<<<< task over @ %s <<<<<<<<<<' % (time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())))
 

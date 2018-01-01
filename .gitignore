@@ -1,2 +1,4 @@
 __pycache__/
 .DS_Store
+lj-crawler-data.txt
+crawler.log

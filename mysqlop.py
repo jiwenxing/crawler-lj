@@ -132,6 +132,9 @@ def save_or_update(fileName, server):
 
     insertNum = 0
     updateNum = 0
+    priceDownNum = 0
+    priceUpNum = 0
+    totalDiffAmount = 0
     for line in f.readlines(): 
         line = line.strip() 
         if not len(line) or line.startswith('#'): 
@@ -153,12 +156,23 @@ def save_or_update(fileName, server):
                 print(info["标题"])
                 print("price diff: %d, update done!" % (diff))
                 updateNum += 1
+                totalDiffAmount += diff
+                if diff>0:
+                    priceUpNum += 1
+                else:
+                    priceDownNum += 1
 
     print("total insert data: %d" % insertNum)
     print("total update data: %d" % updateNum)
+    print("total priceUpNum: %d" % priceUpNum)
+    print("total priceDownNum: %d" % priceDownNum)
+    print("avg price diff: %f" % (totalDiffAmount/updateNum))
 
     logging.error("total insert data: %d" % insertNum)
     logging.error("total update data: %d" % updateNum)
+    logging.error("total priceUpNum: %d" % priceUpNum)
+    logging.error("total priceDownNum: %d" % priceDownNum)
+    logging.error("avg price diff: %f" % (totalDiffAmount/updateNum))
 
     f.close()
     closedb(db) 
@@ -166,9 +180,8 @@ def save_or_update(fileName, server):
 
 def main():
     
-    fileNames =  os.listdir('./data')
-    for fileName in fileNames:
-        save_or_update("./data/"+fileName, "local")
+    fileName =  "lj-crawler-data.txt"
+    save_or_update(fileName, "local")
   
 
 if __name__ == '__main__':

@@ -274,3 +274,25 @@ ERROR:root:total priceDownNum: 188
 ERROR:root:avg price diff: -5.938525
 ERROR:root:task takes 39 minutes in total
 ERROR:root:<<<<<<<<<< task over @ 2017-12-30 16:18:25 <<<<<<<<<<
+ERROR:root:>>>>>>>>>> task begin @ 2018-01-06 11:14:00 >>>>>>>>>>
+ERROR:root:the area jianggan begin at 2018-01-06 11:14:00
+ERROR:root:the area jianggan end at 2018-01-06 11:21:57
+ERROR:root:the area gongshu begin at 2018-01-06 11:21:57
+ERROR:root:the area gongshu end at 2018-01-06 11:28:42
+ERROR:root:the area xiasha begin at 2018-01-06 11:28:42
+ERROR:root:the area xiasha end at 2018-01-06 11:31:46
+ERROR:root:the area xihu begin at 2018-01-06 11:31:46
+ERROR:root:the area xihu end at 2018-01-06 11:40:01
+ERROR:root:the area shangcheng begin at 2018-01-06 11:40:01
+ERROR:root:the area shangcheng end at 2018-01-06 11:42:41
+ERROR:root:the area xiacheng begin at 2018-01-06 11:42:41
+ERROR:root:the area xiacheng end at 2018-01-06 11:47:53
+ERROR:root:the area binjiang begin at 2018-01-06 11:47:53
+ERROR:root:the area binjiang end at 2018-01-06 12:00:53
+ERROR:root:total insert data: 502
+ERROR:root:total update data: 426
+ERROR:root:total priceUpNum: 90
+ERROR:root:total priceDownNum: 336
+ERROR:root:avg price diff: -7.166667
+ERROR:root:task takes 48 minutes in total
+ERROR:root:<<<<<<<<<< task over @ 2018-01-06 12:02:24 <<<<<<<<<<

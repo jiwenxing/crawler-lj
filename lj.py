@@ -126,7 +126,7 @@ def run():
     
     for area_code in area_code_set:
         logging.error('the area %s begin at %s' % (area_code, time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())))
-        pool = Pool()
+        pool = Pool(10)
         for i in generate_allurl(city_code, area_code):
             pool.map(main, [url for url in get_allurl(i)])   # results=pool.map(爬取函数，网址列表) 固定用法
         logging.error('the area %s end at %s' % (area_code, time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())))

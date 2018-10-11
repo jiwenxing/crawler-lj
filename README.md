@@ -1,5 +1,5 @@
 
-![](http://7xry05.com1.z0.glb.clouddn.com/201711281254_646.png)
+![](http://pgdgu8c3d.bkt.clouddn.com/201711281254_646.png)
 
 [![language](https://img.shields.io/badge/python-v3.6.1-blue.svg)]()
 [![version](https://img.shields.io/badge/version-1.1-yellowgreen.svg)]()
